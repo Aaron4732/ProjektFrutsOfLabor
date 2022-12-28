@@ -31,14 +31,36 @@ public class Grid {
         this.gridBroad = gridBroad;
     }
 
-    public void printGrid() {
+    public void printGridShips() {
         shipGrid.forEach(System.out::println);
+    }
+
+    public void printGridShots() {
         shotGrid.forEach(System.out::println);
     }
 
+
     public void placeShips() {
-        Placer placer = new Placer(shipGrid,shipsList);
+        Placer placer = new Placer(this);
         placer.placeShipsTerminal();
+    }
+
+    public int getPositionGridShip(int x, int y) {
+        return 0;
+    }
+
+    public void addShipToList(Ship ship) {
+        shipsList.add(ship);
+    }
+
+    public void changeFieldOnShipsGrid(int x, int y, int newValue) {
+        List<Integer> lineX = shipGrid.get(y);
+        lineX.set(x, newValue);
+    }
+
+    public void changeFieldOnShotsGrid(int x, int y, int newValue) {
+        List<Integer> lineX = shipGrid.get(y);
+        lineX.set(x, newValue);
     }
 
 }
