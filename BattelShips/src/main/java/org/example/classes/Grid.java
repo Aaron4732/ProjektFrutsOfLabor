@@ -17,6 +17,8 @@ public class Grid {
     List<List<Integer>> shipGrid = IntStream.rangeClosed(1, gridHight).boxed().map(i -> Collections.nCopies(gridBroad, 0)).collect(Collectors.toList());
     List<List<Integer>> shotGrid = IntStream.rangeClosed(1, gridHight).boxed().map(i -> Collections.nCopies(gridBroad, 0)).collect(Collectors.toList());
     // https://www.techiedelight.com/initialize-list-of-lists-java/
+
+    ArrayList<Ship> shipsList = new ArrayList<>();
     public Grid() {
 
     }
@@ -32,6 +34,11 @@ public class Grid {
     public void printGrid() {
         shipGrid.forEach(System.out::println);
         shotGrid.forEach(System.out::println);
+    }
+
+    public void placeShips() {
+        Placer placer = new Placer(shipGrid,shipsList);
+        placer.placeShipsTerminal();
     }
 
 }
