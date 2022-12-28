@@ -1,7 +1,13 @@
 package org.example;
 
+import org.example.classes.Grid;
+import org.example.classes.Placer;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world! \n Aaron was here");
+        Grid field1 = new Grid();
+
+      //  field1.printGrid();
+
     }
 }
