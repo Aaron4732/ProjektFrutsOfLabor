@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class Main {
-    public static <Steam> void main(String[] args) {
+    public static void main(String[] args) {
         Grid field1 = new Grid();
 
         field1.placeShips();
