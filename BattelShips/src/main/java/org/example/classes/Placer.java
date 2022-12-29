@@ -23,11 +23,6 @@ public class Placer {
 
     public Placer(Grid grid) {
         this.grid = grid;
-
-        setAllShipsTo0();
-        setShipsWhitSize2(1);
-        setShipsWhitSize5(1);
-
     }
 
     public void placeShipsTerminal() {
@@ -158,5 +153,33 @@ public class Placer {
 
     public void setShipTyp(int shipTyp) {
         this.shipTyp = shipTyp;
+    }
+
+    public void placeShipsAutomatik() {
+        setAllShipsTo0();
+
+        setShipSice(2);
+        setStartCoordinatX(1);
+        setStartCoordinatY(1);
+        setStepCoordinatX(1);
+        placeShip();
+
+        setShipSice(5);
+        setStartCoordinatX(1);
+        setStartCoordinatY(3);
+        setStepCoordinatX(1);
+        placeShip();
+
+        setShipSice(3);
+        setStartCoordinatX(1);
+        setStartCoordinatY(5);
+        setStepCoordinatY(1);
+        placeShip();
+
+        setShipSice(3);
+        setStartCoordinatX(3);
+        setStartCoordinatY(5);
+        setStepCoordinatY(1);
+        placeShip();
     }
 }

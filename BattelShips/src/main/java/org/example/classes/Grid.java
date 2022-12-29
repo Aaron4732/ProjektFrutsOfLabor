@@ -51,11 +51,13 @@ public class Grid {
 
     public void placeShips() {
         Placer placer = new Placer(this);
-        placer.placeShipsTerminal();
+        placer.placeShipsAutomatik();
+
+        printGridShips();
     }
 
     public int getPositionGridShip(int x, int y) {
-        return 0;
+        return -2;
     }
 
     public void addShipToList(Ship ship) {
