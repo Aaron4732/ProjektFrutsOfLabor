@@ -26,6 +26,7 @@ public class Placer {
 
         setAllShipsTo0();
         setShipsWhitSize2(1);
+        setShipsWhitSize5(1);
 
     }
 
@@ -59,8 +60,8 @@ public class Placer {
                 String direction = scanner.next();
 
                 switch (direction) {
-                    case "U" -> setStepCoordinatY(1);
-                    case "D" -> setStepCoordinatY(-1);
+                    case "U" -> setStepCoordinatY(-1);
+                    case "D" -> setStepCoordinatY(1);
                     case "L" -> setStepCoordinatX(-1);
                     case "R" -> setStepCoordinatX(1);
                 }
@@ -68,7 +69,7 @@ public class Placer {
                 if (positionForShipFree()) break;
             }
 
-            //placeShip();
+            placeShip();
             grid.printGridShips();
         }
     }
@@ -97,13 +98,13 @@ public class Placer {
     }
 
     private void placeShip() {
-        placedShips++;
-
         grid.addShipToList(new Ship(shipSice, shipTyp, startCoordinatX, startCoordinatY, stepCoordinatX, stepCoordinatY));
 
         for (int i = 0; i < shipSice; i++) {
-            grid.changeFieldOnShipsGrid(startCoordinatX - stepCoordinatX * i, startCoordinatY - stepCoordinatY * i, placedShips);
+            grid.changeFieldOnShipsGrid(startCoordinatX + stepCoordinatX * i, startCoordinatY + stepCoordinatY * i, placedShips);
         }
+
+        placedShips++;
     }
 
     public void setAllShipsTo0() {
