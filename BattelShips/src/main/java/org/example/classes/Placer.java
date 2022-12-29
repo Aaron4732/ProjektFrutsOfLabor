@@ -20,6 +20,7 @@ public class Placer {
     int shipTyp = 0;
 
     public Placer(Grid grid) {
+
         this.grid = grid;
     }
 
@@ -108,7 +109,7 @@ public class Placer {
             for (int k = -1; k < (shipSice-1)* stepX +3-1; k++) {
 
                 //When the field is outside the grid, it get ignored
-                if (startCoordinatX +k < 0 || stepY +k >= grid.gridBroad) continue;
+                if (startCoordinatX +k < 0 || startCoordinatX +k >= grid.gridBroad) continue;
 
                 //return false when a field is not free
                 if (grid.getPositionShipsGrid(startCoordinatX + k,startCoordinatY +i) > -2) {
