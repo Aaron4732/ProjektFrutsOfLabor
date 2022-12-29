@@ -1,10 +1,7 @@
 package org.example.classes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Grid {
     int gridHight = 8;
@@ -51,13 +48,13 @@ public class Grid {
 
     public void placeShips() {
         Placer placer = new Placer(this);
-        placer.placeShipsAutomatik();
+        placer.placeShipsTerminal();
 
         printGridShips();
     }
 
-    public int getPositionGridShip(int x, int y) {
-        return -2;
+    public int getPositionShipsGrid(int x, int y) {
+        return shipGrid.get(y).get(x);
     }
 
     public void addShipToList(Ship ship) {

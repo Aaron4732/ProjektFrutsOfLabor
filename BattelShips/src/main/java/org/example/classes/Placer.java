@@ -3,22 +3,20 @@ package org.example.classes;
 import java.util.Scanner;
 
 public class Placer {
-    Grid grid;
     int shipsWhitSize2 = 1;
     int shipsWhitSize3 = 2;
     int shipsWhitSize4 = 2;
     int shipsWhitSize5 = 1;
-
     int shipsTotal = shipsWhitSize2 + shipsWhitSize3 + shipsWhitSize4 + shipsWhitSize5;
 
-    int placedShips = 0;
+    Grid grid;
 
+    int placedShips = 0;
     int startCoordinatX;
     int startCoordinatY;
-    int stepCoordinatX = 0;
-    int stepCoordinatY = 0;
+    int stepX = 0;
+    int stepY = 0;
     int shipSice;
-
     int shipTyp = 0;
 
     public Placer(Grid grid) {
@@ -55,10 +53,8 @@ public class Placer {
                 String direction = scanner.next();
 
                 switch (direction) {
-                    case "U" -> setStepCoordinatY(-1);
-                    case "D" -> setStepCoordinatY(1);
-                    case "L" -> setStepCoordinatX(-1);
-                    case "R" -> setStepCoordinatX(1);
+                    case "D" -> setStepY(1);
+                    case "R" -> setStepX(1);
                 }
 
                 if (positionForShipFree()) break;
@@ -89,14 +85,46 @@ public class Placer {
     }
 
     private boolean positionForShipFree() {
+        //Check if the ship is in the grid
+        if (
+                startCoordinatX < 0 ||
+                startCoordinatX >= grid.gridBroad ||
+                startCoordinatY < 0 ||
+                startCoordinatY >= grid.gridHight ||
+                startCoordinatX + shipSice * stepX < 0 ||
+                startCoordinatX + shipSice * stepX >= grid.gridBroad ||
+                startCoordinatY + shipSice * stepY < 0 ||
+                startCoordinatY + shipSice * stepY >= grid.gridHight
+        ) {
+            return false;
+        }
+
+        //Check all field which have to be free
+        for (int i = -1; i < (shipSice-1)* stepY +3-1; i++) {
+
+            //When the field is outside the grid, it get ignored
+            if (startCoordinatY +i < 0 || startCoordinatY +i >= grid.gridHight) continue;
+
+            for (int k = -1; k < (shipSice-1)* stepX +3-1; k++) {
+
+                //When the field is outside the grid, it get ignored
+                if (startCoordinatX +k < 0 || stepY +k >= grid.gridBroad) continue;
+
+                //return false when a field is not free
+                if (grid.getPositionShipsGrid(startCoordinatX + k,startCoordinatY +i) > -2) {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
     private void placeShip() {
-        grid.addShipToList(new Ship(shipSice, shipTyp, startCoordinatX, startCoordinatY, stepCoordinatX, stepCoordinatY));
+        grid.addShipToList(new Ship(shipSice, shipTyp, startCoordinatX, startCoordinatY, stepX, stepY));
 
         for (int i = 0; i < shipSice; i++) {
-            grid.changeFieldOnShipsGrid(startCoordinatX + stepCoordinatX * i, startCoordinatY + stepCoordinatY * i, placedShips);
+            grid.changeFieldOnShipsGrid(startCoordinatX + stepX * i, startCoordinatY + stepY * i, placedShips);
         }
 
         placedShips++;
@@ -129,14 +157,14 @@ public class Placer {
         shipsTotal = shipsWhitSize2 + shipsWhitSize3 + shipsWhitSize4 + shipsWhitSize5;
     }
 
-    public void setStepCoordinatX(int stepCoordinatX) {
-        this.stepCoordinatX = stepCoordinatX;
-        this.stepCoordinatY = 0;
+    public void setStepX(int stepX) {
+        this.stepX = stepX;
+        this.stepY = 0;
     }
 
-    public void setStepCoordinatY(int stepCoordinatY) {
-        this.stepCoordinatY = stepCoordinatY;
-        this.stepCoordinatX = 0;
+    public void setStepY(int stepY) {
+        this.stepY = stepY;
+        this.stepX = 0;
     }
 
     public void setStartCoordinatX(int startCoordinatX) {
@@ -161,25 +189,25 @@ public class Placer {
         setShipSice(2);
         setStartCoordinatX(1);
         setStartCoordinatY(1);
-        setStepCoordinatX(1);
+        setStepX(1);
         placeShip();
 
         setShipSice(5);
         setStartCoordinatX(1);
         setStartCoordinatY(3);
-        setStepCoordinatX(1);
+        setStepX(1);
         placeShip();
 
         setShipSice(3);
         setStartCoordinatX(1);
         setStartCoordinatY(5);
-        setStepCoordinatY(1);
+        setStepY(1);
         placeShip();
 
         setShipSice(3);
         setStartCoordinatX(3);
         setStartCoordinatY(5);
-        setStepCoordinatY(1);
+        setStepY(1);
         placeShip();
     }
 }
